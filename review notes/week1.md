@@ -1,10 +1,13 @@
 
 # Lecture 1: Cloud Computing
 
-### Distributed System
+#### Distributed System
 > A system in which hardware or software components located at networked computers communicate and coordinate their actions only by message passing
 
-### Cloud Computing
+#### Grid computing 
+> The use of widely distributed computer resources to reach **a common goal**.
+
+#### Cloud Computing
 * Definition
     * jargon term without a commonly accepted non-ambiguous definition
     * a synonym for distributed computing
@@ -24,36 +27,10 @@
         * capabilities can be **elastically  provisioned and released**, in some cases automatically, to **scale rapidly** upon demand.
     5. Measured service
         * 云系统使用metering capability来自动控制和最优化资源，根据资源类型
-        * cloud systems automatically control and optimise resource use by leveraging a **metering capability** at some level of abstraction appropriate to the type of service.
+        * cloud systems **automatically control and optimise resource** use by leveraging a **metering capability** at some level of abstraction appropriate to the type of service.
 * Flavours (types)
     1. Compute Clouds
     2. Data Clouds
     3. Application Clouds
     4. Private / Public / Hybrid / Mobile / ...  Clouds
     5. ...
-
-
-
-# Lecture 2: Why we need CCC
-
-Scaling:
-1. Compute Scaling
-2. Network Scaling
-
-Data Deluge!!
-
-Researcher need tools and methodologies to:
-1. Search / Discover data
-2. Use / Analyse data
-3. Share data
-4. Store data
-5. Track data
-6. Destroy data
-7. Move data around
-8. ...
-
-Solution: HPC
-* Security solutions involved integration of multiple technologies
-* Secure, distributed file-based data management
-* Meta-data capture through REST-based solution
-* Job Submission to massive HPC systems
