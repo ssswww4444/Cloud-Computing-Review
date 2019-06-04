@@ -25,8 +25,8 @@
 #### Adding more: limitations (Amdahl's Law)
 * 因为有程序有non-parallizable (sequential) 的部分, 用再多的processor，加速（倍数）都会有上限
 * 比如95%的程序都能被parallelized，**理论上**最多可以加速20倍 (1/alpha = 1/0.05 = 20, 可parallel的部分的计算时间无限接近于0)
-![Amdahl's Law](amdahl.png)
-![Amdahl's Law2](amdahl2.png)
+<img src="amdahl.png" width="400">
+<img src="amdahl2.png" width="400">
 * Over simplification of Amdahl's Law
     * 例子
         * 比如一个program要跑单个loop，现在每个processor负责一个iteration
