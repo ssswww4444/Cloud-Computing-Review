@@ -51,7 +51,7 @@ ___
 `<p>This is a paragraph</p>`
 
 <!-- Images -->
-![Markdown Logo](https://markdown-here.com/img/icon256.png | width=100)
+![Markdown Logo](https://markdown-here.com/img/icon256.png)
 
 <!-- Github Markdown -->
 
