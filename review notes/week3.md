@@ -32,8 +32,23 @@
         * 比如一个program要跑单个loop，现在每个processor负责一个iteration
         * 那每个processor现在就需要处理loop overheads (检查guard, loop completion, etc.), 有多少个process, 这个overheads就有多少
         * 所以这些loop overheads又可以看作跑这段代码的 **serial overhead**
-    * Also assumed a fixed problem size
+    * Also assumed a **fixed problem size**
         * Sometimes can't **predict length of time required** for jobs
 
-### Gaustafson-Barsis's Law
-* Gives Scaled Speed-up
+#### Gaustafson-Barsis's Law
+* Gives "Scaled Speed-up"
+* Propose that programmers tends to set the size of the problems to use the available equipment to solve problem within a practical fixed times. Faster (more parallel) equipment available, larger problems can be solved in the same time.
+<img src="glaw.png" width="400">
+
+#### Difference between two laws
+* Amdahl: 假设你要开60公里，你前一个小时只开了30公里(serial部分)，你后面30公里无论开多快(parallel部分)，你的平均速度都不可能到90公里/h
+* Gaustafson: 我们不假设你到底要开多远，你前一个小时只开了30公里，只要你之后开的足够快(有足够多的时间和距离)，你总能达到平均90公里/h的速度
+
+#### Computer Architecture
+* A computer comprises:
+    1. CPU for executing programs
+    2. Memory that stores executing program & related data
+    3. I/O systems (keyboards, networks, ...)
+    4. Permanent storage for read/write data into/out of memory
+    5. Balance of all of these (key importance, especially for HPC)
+* 
