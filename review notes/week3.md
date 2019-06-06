@@ -189,7 +189,7 @@
     * Typically cannot guarantee the route taken, and hence latency
 6. There is one administrator
     * One administrator of the distributed system
-    * 
+    * Firewall changes, server reconfigurations, services, access control (意义不明)
 7. Transport cost is zero
     * Can send as much data as I like for free
     * Truth: NEVER FREE
@@ -200,3 +200,66 @@
 10. And issues of heterogeneity of compute, data, security, ...
 
 #### Strategies for Development of Parallel/Distributed Systems
+* Challenges: **Dependency analysis**
+    * Hard for code that uses pointers, recursion, ...
+    * Loops can have unknown number of iterations
+    * Access to global resources, e.g. shared variables
+* Design Stages of Parallel Programs:
+    1. Partitioning
+        * 把计算和数据都分成小任务
+        * Decomposition of computational activities and data into smaller tasks
+        * Numerous paradigms (样式):
+            1. Master-Worker
+            2. SPMD
+            3. pipeline
+            4. Divide and Conquer
+            5. Speculation
+    2. Communication
+        * 交流，协作
+        * Flow of information and coordination among tasks that are created in the partitioning stage
+    3. Agglomeration (成团)
+        * Structure好不好看performance和implementation cost, 有时候大的task可能communication更好
+        * Since tasks and communication structure -> evaluated for **performance and implementation cost**
+        * Tasks may be grouped into larger tasks to improve communication
+        * Individual communications can be bundled
+    4. Mappling / Scheduling
+        * 把task分给process，要minimise completion time，还有最大化的使用resource
+        * Assigning tasks to processes such that job completion time is minimized and resource utilization is maximized
+* Models (Parititioning):
+    1. Master-Slave Model
+        1. Master拆分问题，分给slave去计算，然后gather起来得到最终结果
+        2. Master decomposes the problem into smaller tasks
+        3. Distributes to workers
+        4. Gather partial results to produce the final result
+        <img src="master-slave.png" width="300"> 
+
+    2. Single-Program Multi-Data (SPMD)
+        * 数据拆封给多个process执行同样的code
+        * Each process executes the **same piece of code**, but on **different parts of the data**
+        * Data is typically split among the available processes
+        * Data splitting and analysis can be done in many ways
+        <img src="spmd.png" width="300"> 
+
+    3. Data Pipelining
+        * Suitable for applications involving **multiple stages of execution**, that typically operate on large number of data sets 
+        <img src="pipeline.png" width="300"> 
+
+    4. Divide-and-Conquer
+        * A problem is divided into two or more sub problems
+        * Each of these sub problems are **solved independently**, and their **results are combined**
+        * 3 operations: **Split, Compute, Join**
+        * Master-worker / task-farming is like divide and conquer with master doing both split and join operation
+        <img src="divide-and-conquer.png" width="300"> 
+
+    5. Speculative (推理的) Parallelism
+        * 其他样式不合适的时候用这个
+        * 适合解决复杂的dependencies，通过**预测**variable的值来消除dependency，从而enable parallelism (如果prediction对了就提高performance)
+        * Used when it is quite difficult to achieve parallelism through the previous paradigms
+            * Problems with **complex dependencies** - use "look ahead" execution
+            * Producer P & Consumer C
+                * C depends on P for the value of some variable V
+                * If the value of V is **predictable**, we can execute C **speculatively** using a predicted value in parallel with P
+                * If prediction correct -> **gain performance**! (C doesn't wait for P anymore)
+                * If prediction incorrect -> take corrective action, cancel C and restart C with the right value of V
+        <img src="speculative.png" width="300"> 
+        
