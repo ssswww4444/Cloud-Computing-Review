@@ -25,8 +25,8 @@
 #### Adding more: limitations (Amdahl's Law)
 * 因为有程序有non-parallizable (sequential) 的部分, 用再多的processor，加速（倍数）都会有上限
 * 比如95%的程序都能被parallelized，**理论上**最多可以加速20倍 (1/alpha = 1/0.05 = 20, 可parallel的部分的计算时间无限接近于0)
-<img src="amdahl.png" width="400">
-<img src="amdahl2.png" width="400">
+<img src="pic/amdahl.png" width="400">
+<img src="pic/amdahl2.png" width="400">
 
 * Over simplification of Amdahl's Law
     * 例子
@@ -39,7 +39,7 @@
 #### Gaustafson-Barsis's Law
 * Gives "Scaled Speed-up"
 * Propose that programmers tends to set the size of the problems to use the available equipment to solve problem within a practical fixed times. Faster (more parallel) equipment available, larger problems can be solved in the same time.
-<img src="glaw.png" width="400">
+<img src="pic/glaw.png" width="400">
 
 #### Difference between two laws
 * Amdahl: 假设你要开60公里，你前一个小时只开了30公里(serial部分)，你后面30公里无论开多快(parallel部分)，你的平均速度都不可能到90公里/h
@@ -54,31 +54,31 @@
     5. Balance of all of these (key importance, especially for HPC)
 
 * Flynn's Taxonomy (分类系统)
-    <img src="taxonomy.png" width="400"> 
+    <img src="pic/taxonomy.png" width="400"> 
     1. Single Instruction, Single Data Stream (SISD)
         * 对一份数据，执行一个instruction
         * PU -> Processing Unit
         * One operation at a time
 
-        <img src="sisd.png" width="300"> 
+        <img src="pic/sisd.png" width="300"> 
     2. Single Instruction, Multiple Data Stream (SIMD)
         * 对多份数据，同时执行同样的insturction
         * Multiple processing elements that **perform the same operation** on multiple data points simultaneously
 
-        <img src="simd.png" width="300"> 
+        <img src="pic/simd.png" width="300"> 
     3. Multiple Instruction, Single Data Stream (MISD)
         * 对一份数据，同时执行多个instruction
         * Parallel computing architecture where many functional units (PU/CPU) perform **different operations on the same data**. 
         * Example: running multiple error checking processes on same data stream
 
-        <img src="misd.png" width="300"> 
+        <img src="pic/misd.png" width="300"> 
     4. Multiple Instruction, Multiple Data Stream (MIMD)
         * 对多份数据，同时执行多个instruction
         * 现在最常用
         * At any time, different processors may be executing different instructions on different pieces of data
         * Machines can be **shared memory or distributed memory categories**
 
-        <img src="mimd.png" width="300"> 
+        <img src="pic/mimd.png" width="300"> 
 
 #### Approaches for Parallelism
 * Where and how
@@ -95,26 +95,26 @@
         1. Hardware Threading CPU
             * 多个CU，共享基本运算unit
             * Multiple control units, share arithmetic (基本运算) unit (Integer, Floating point, vector)
-            <img src="threading_cpu.png" width="300"> 
+            <img src="pic/threading_cpu.png" width="300"> 
 
         2. Multi-Core
             * 多个CU，独立基本运算unit
             * Can process data and perform computational tasks in parallel
             * Share same cache
-            <img src="multicore.png" width="300"> 
+            <img src="pic/multicore.png" width="300"> 
 
         3. Symmetric Multiprocessing (SMP)
             * 多个CU，独立cache和基本运算unit，但共享main memory (跑不同program)
             * Two or more identical processors connected to a single, shared main memory
             * Each processor executes different programs and works on different data but with capability of sharing common resources
             * Need inter-process communication
-            <img src="multicore.png" width="300"> 
+            <img src="pic/multicore.png" width="300"> 
 
         4. Non-Uniform Memory Access (NUMA)
             * 每个CPU有独立的memory, CPU之间可以交流
             * Speed up by allowing processor to access **its own local memory**, faster than non-local memory.
             * Key: allocate memory/processors in NUMA friendly ways (e.g. avoid inter-processor communication)
-            <img src="multicore.png" width="300"> 
+            <img src="pic/multicore.png" width="300"> 
 
     * Operating System
         1. Modern multi-core operating systems support different "forms" of parallisation
@@ -231,25 +231,25 @@
         2. Master decomposes the problem into smaller tasks
         3. Distributes to workers
         4. Gather partial results to produce the final result
-        <img src="master-slave.png" width="300"> 
+        <img src="pic/master-slave.png" width="300"> 
 
     2. Single-Program Multi-Data (SPMD)
         * 数据拆封给多个process执行同样的code
         * Each process executes the **same piece of code**, but on **different parts of the data**
         * Data is typically split among the available processes
         * Data splitting and analysis can be done in many ways
-        <img src="spmd.png" width="300"> 
+        <img src="pic/spmd.png" width="300"> 
 
     3. Data Pipelining
         * Suitable for applications involving **multiple stages of execution**, that typically operate on large number of data sets 
-        <img src="pipeline.png" width="300"> 
+        <img src="pic/pipeline.png" width="300"> 
 
     4. Divide-and-Conquer
         * A problem is divided into two or more sub problems
         * Each of these sub problems are **solved independently**, and their **results are combined**
         * 3 operations: **Split, Compute, Join**
         * Master-worker / task-farming is like divide and conquer with master doing both split and join operation
-        <img src="divide-and-conquer.png" width="300"> 
+        <img src="pic/divide-and-conquer.png" width="300"> 
 
     5. Speculative (推理的) Parallelism
         * 其他样式不合适的时候用这个
@@ -261,5 +261,5 @@
                 * If the value of V is **predictable**, we can execute C **speculatively** using a predicted value in parallel with P
                 * If prediction correct -> **gain performance**! (C doesn't wait for P anymore)
                 * If prediction incorrect -> take corrective action, cancel C and restart C with the right value of V
-        <img src="speculative.png" width="300"> 
+        <img src="pic/speculative.png" width="300"> 
         
