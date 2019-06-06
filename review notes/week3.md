@@ -96,11 +96,13 @@
             * 多个CU，共享基本运算unit
             * Multiple control units, share arithmetic (基本运算) unit (Integer, Floating point, vector)
         <img src="threading_cpu.png" width="300"> 
+
         2. Multi-Core
             * 多个CU，独立基本运算unit
             * Can process data and perform computational tasks in parallel
             * Share same cache
         <img src="multicore.png" width="300"> 
+        
         3. Symmetric Multiprocessing (SMP)
             * 多个CU，独立cache和基本运算unit，但共享main memory (跑不同program)
             * Two or more identical processors connected to a single, shared main memory
