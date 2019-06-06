@@ -227,10 +227,10 @@
         * Assigning tasks to processes such that job completion time is minimized and resource utilization is maximized
 * Models (Parititioning):
     1. Master-Slave Model
-        1. Master拆分问题，分给slave去计算，然后gather起来得到最终结果
-        2. Master decomposes the problem into smaller tasks
-        3. Distributes to workers
-        4. Gather partial results to produce the final result
+        * Master拆分问题，分给slave去计算，然后gather起来得到最终结果
+        1. Master decomposes the problem into smaller tasks
+        2. Distributes to workers
+        3. Gather partial results to produce the final result
         <img src="pic/master-slave.png" width="300"> 
 
     2. Single-Program Multi-Data (SPMD)
