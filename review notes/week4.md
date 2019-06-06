@@ -85,3 +85,41 @@
         * Programmer is responsible for identifying opportunities for parallelism & implementing algorithms for parallelism using MPI
 
 #### MPI Communication
+* Managing communications
+    1. `MPI_Status()`
+    2. `MPI_Request()`
+    3. `MPI_Barrier()`
+    4. `MPI_Wtime()`
+* Collective communications
+    1. `MPI_Broadcast`
+        * 从"root"广播一条信息，大家收到内容都一样，自己也会收到
+        * Broadcast a message from "root" to all other processes of the communicator, **including itself**
+    2. `MPI_Scatter`
+        * 把"root"的一份数据拆分成N份分给processes，自己也会收到一份
+        * Send data from one task to all tasks in a group
+    3. `MPI_Gather`
+        * 数据都收集到"root"
+        * The inverse operation of MPI_Scatter
+    4. `MPI_Allreduce`
+        * 把reduce的结果发给所有的进程
+        * Return reduced result to all processors
+* Reduction Communications
+    1. `MPI_Reduce`
+        * 对communication group里所有进程（的数据）进行reduce的操作（比如sum，max等），结果返回给"root"
+        * Perform a reduce operation (e.g. sum, max, logic AND) across all the members of a communication group
+    2. `MPI_Allreduce`
+        * 把reduce的结果发给所有的进程
+        * Return reduced result to all processors
+
+#### MPI Programming Basics
+* Many parallel programs can be written using just these six functions:
+    1. MPI_INIT
+    2. MPI_FINALISE
+    3. MPI_COMM_SIZE
+    4. MPI_COMM_RANK
+    5. MPI_SEND
+    6. MPI_RECV
+* MPI_SEND and MPI_RECV functions can be substituted with collective operations such as MPI_BCAST and MPI_REDUCE (improve simplicity and efficiency)
+* Collective Operations
+    1. MPI_BCAST: **distributes** data from one process (root) to all others in the communicator
+    2. MPI_REDUCE: **combines** data from all processes in communicator and returns it to one process
