@@ -47,3 +47,14 @@
     3. `module whatis <modulefile>` description of the module
     4. `module display <modulefile>` to see exactly what a given modulefile will do to your environment (e.g. what will be added to PATH)
     5. `module load <modulefile>` add one or more module files to user's current environment
+    6. `module unload <modulefile>` remove module from user's current environment
+    7. `module purge` remove **all** modules from user's current environment
+    8. In Spartan: `module spider` search for all possible modules (not just those in the existing module path)
+
+#### Batch Systems and Wordload Managers
+* Portable Batch System (PBS)
+    * a utility software that **perform job scheduling** by assigning unattended background tasks expressed as **batch jobs** among the available resources
+* Slurm Workload Manager
+    * a popular job scheduler
+    * also use **batch script** (very similar in intent and style to PBS script)
+* Job scripts can be translated between PBS & Slurm
