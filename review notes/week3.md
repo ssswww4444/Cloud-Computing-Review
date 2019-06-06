@@ -51,4 +51,19 @@
     3. I/O systems (keyboards, networks, ...)
     4. Permanent storage for read/write data into/out of memory
     5. Balance of all of these (key importance, especially for HPC)
-* 
+
+* Flynn's Taxonomy (分类系统)
+    <img src="taxonomy.png" width="400"> 
+    1. Single Instruction, Single Data Stream (SISD)
+        * PU -> Processing Unit
+        * One operation at a time
+
+        <img src="sisd.png" width="300"> 
+    2. Single Instruction, Multiple Data Stream (SIMD)
+        * Parallel computing architecture where many functional units (PU/CPU) perform **different operations on the same data**. 
+
+        <img src="simd.png" width="300"> 
+    3. Multiple Instruction, Single Data Stream (MISD)
+        <img src="misd.png" width="300"> 
+    4. Multiple Instruction, Multiple Data Stream (MIMD)
+        <img src="mimd.png" width="300"> 
