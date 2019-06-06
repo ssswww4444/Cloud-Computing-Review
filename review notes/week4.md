@@ -68,4 +68,20 @@
 
 #### Parallel Programmming
 1. Shared Memory
+    * Multithreading
+        * Master thread forks sub-threads and divides tasks between them
+        * Threads run concurrently, then joined at a subsequent point to resume normal serial application
+    * One implementation: OpenMP
+        * Application Program Interface
+        * Include directives (指示) for **multi-threaded, shared memory** parallel programming
+    * Easier, but limited to a single system unit (no distributed memory)
+    * **Thread-based** rather than message passing
 2. Distributed Memory
+    * **Message passing** paradigm
+    * Most popular standards: Message Passing Interface (MPI)
+        * 互相发message来一起解决一个问题
+        * A popular implementation: OpenMPI
+        * Core principle: processors **cooperate to solve a problem by passing messages** to each other through a common communications network
+        * Programmer is responsible for identifying opportunities for parallelism & implementing algorithms for parallelism using MPI
+
+#### MPI Communication
