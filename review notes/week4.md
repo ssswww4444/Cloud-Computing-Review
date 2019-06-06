@@ -58,3 +58,14 @@
     * a popular job scheduler
     * also use **batch script** (very similar in intent and style to PBS script)
 * Job scripts can be translated between PBS & Slurm
+
+#### X-Windows Forwarding
+* Cluster上做计算，用local来visualise结果
+* Do computation on the cluster, visualisation on a local system
+* Login with -Y option for security, then login with -X to the login node
+* Compute node will then pass through the graphics via login node to the desktop system
+* Need an X-window client on your desktop for the visualisation
+
+#### Parallel Programmming
+1. Shared Memory
+2. Distributed Memory
