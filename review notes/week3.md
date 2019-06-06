@@ -55,15 +55,73 @@
 * Flynn's Taxonomy (分类系统)
     <img src="taxonomy.png" width="400"> 
     1. Single Instruction, Single Data Stream (SISD)
+        * 对一份数据，执行一个instruction
         * PU -> Processing Unit
         * One operation at a time
 
         <img src="sisd.png" width="300"> 
     2. Single Instruction, Multiple Data Stream (SIMD)
-        * Parallel computing architecture where many functional units (PU/CPU) perform **different operations on the same data**. 
+        * 对多份数据，同时执行同样的insturction
+        * Multiple processing elements that **perform the same operation** on multiple data points simultaneously
 
         <img src="simd.png" width="300"> 
     3. Multiple Instruction, Single Data Stream (MISD)
+        * 对一份数据，同时执行多个instruction
+        * Parallel computing architecture where many functional units (PU/CPU) perform **different operations on the same data**. 
+        * Example: running multiple error checking processes on same data stream
+
         <img src="misd.png" width="300"> 
     4. Multiple Instruction, Multiple Data Stream (MIMD)
+        * 对多份数据，同时执行多个instruction
+        * 现在最常用
+        * At any time, different processors may be executing different instructions on different pieces of data
+        * Machines can be **shared memory or distributed memory categories**
+
         <img src="mimd.png" width="300"> 
+
+#### Approaches for Parallelism
+* Where and how
+    * Explicit v.s. Implicit parallelism
+        * Implicit
+            * 不需要特别去写parallel
+            * supported by parallel language or parallizing compilers
+        * Explicit
+            * 程序员自己写parallel
+            * programmer is responsible for most of the parallelization effort: task decomposition, mapping tasks to processors, ...
+            * Assume user is the best judge of how parallelism can be exploited for a particular application
+    * Hardware
+        * Cache: much faster than reading/writing to main memory
+        1. Hardware Threading CPU
+            * 多个CU，共享基本运算unit
+            * Multiple control units, share arithmetic (基本运算) unit (Integer, Floating point, vector)
+        <img src="threading_cpu.png" width="300"> 
+        2. Multi-Core
+            * 多个CU，独立基本运算unit
+            * Can process data and perform computational tasks in parallel
+            * Share same cache
+        <img src="multicore.png" width="300"> 
+        3. Symmetric Multiprocessing (SMP)
+            * 多个CU，独立cache和基本运算unit，但共享main memory (跑不同program)
+            * Two or more identical processors connected to a single, shared main memory
+            * Each processor executes different programs and works on different data but with capability of sharing common resources
+            * Need inter-process communication
+        <img src="multicore.png" width="300"> 
+        4. Non-Uniform Memory Access (NUMA)
+            * 每个CPU有独立的memory, CPU之间可以communicate
+            * Speed up by allowing processor to access **its own local memory**, faster than non-local memory.
+            * Key: allocate memory/processors in NUMA friendly ways (e.g. avoid inter-processor communication)
+        <img src="multicore.png" width="300"> 
+    * Operating System
+    * Software / Applications
+    * Some or all of these
+
+#### Some Erroneous Assumptions of Distributed Systems
+1. Network is reliable
+2. Latency is zero
+3. Bandwith is infinite
+4. Network is secure
+5. Topology doesn't change
+6. There is one administrator
+7. Transport cost is zero
+8. Network is homogenous
+9. Time is ubiquitous
