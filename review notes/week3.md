@@ -95,25 +95,27 @@
         1. Hardware Threading CPU
             * 多个CU，共享基本运算unit
             * Multiple control units, share arithmetic (基本运算) unit (Integer, Floating point, vector)
-        <img src="threading_cpu.png" width="300"> 
+            <img src="threading_cpu.png" width="300"> 
 
         2. Multi-Core
             * 多个CU，独立基本运算unit
             * Can process data and perform computational tasks in parallel
             * Share same cache
-        <img src="multicore.png" width="300"> 
-        
+            <img src="multicore.png" width="300"> 
+
         3. Symmetric Multiprocessing (SMP)
             * 多个CU，独立cache和基本运算unit，但共享main memory (跑不同program)
             * Two or more identical processors connected to a single, shared main memory
             * Each processor executes different programs and works on different data but with capability of sharing common resources
             * Need inter-process communication
-        <img src="multicore.png" width="300"> 
+            <img src="multicore.png" width="300"> 
+
         4. Non-Uniform Memory Access (NUMA)
             * 每个CPU有独立的memory, CPU之间可以交流
             * Speed up by allowing processor to access **its own local memory**, faster than non-local memory.
             * Key: allocate memory/processors in NUMA friendly ways (e.g. avoid inter-processor communication)
-        <img src="multicore.png" width="300"> 
+            <img src="multicore.png" width="300"> 
+            
     * Operating System
         1. Modern multi-core operating systems support different "forms" of parallisation
             * parallel v.s. interleaved semantics (意义不明)
