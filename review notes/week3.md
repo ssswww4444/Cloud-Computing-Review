@@ -235,6 +235,7 @@
 
     2. Single-Program Multi-Data (SPMD)
         * 数据拆封给多个process执行同样的code
+        * 每个process本身会去取不同的数据
         * Each process executes the **same piece of code**, but on **different parts of the data**
         * Data is typically split among the available processes
         * Data splitting and analysis can be done in many ways
