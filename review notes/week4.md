@@ -97,6 +97,7 @@
     2. `MPI_Scatter`
         * 把"root"的一份数据拆分成N份分给processes，自己也会收到一份
         * Send data from one task to all tasks in a group
+        * `MPI_Scatterv`: scatters a **buffer** in parts to all tasks in group
     3. `MPI_Gather`
         * 数据都收集到"root"
         * The inverse operation of MPI_Scatter
@@ -123,3 +124,24 @@
 * Collective Operations
     1. MPI_BCAST: **distributes** data from one process (root) to all others in the communicator
     2. MPI_REDUCE: **combines** data from all processes in communicator and returns it to one process
+
+#### MPI 补充
+1. In MPI4py:
+    * Lowercase methods
+        * Communication of **generic Python** objects
+        * `send()`, `recv()`, `bcast()`, ...
+    * Uppercase methods
+        * Communication of **buffer-like** objects
+        * `Send()`, `Recv()`, `Bcast()`, ...
+        * e.g. numpy array
+    * Blocking and non-blocking
+        * Blocking: `isend()` and `irecv()`
+            * 发送的时候确保发送到对方的buffer，接受的时候确保复制到了自己的memory
+            * 可能引发deadlock
+        * Non-blocking: `Isend()` and `Irecv()`
+            * Communication call returns immediately，允许在通信的时候进行其他不需要这份数据的计算
+            * 效率可能会更高
+        * These functions will return `Request` instances
+            * Methods `Wait` and `Test` and variant thereof of the Request instances can be used for enquiring the status of the communication
+    * `Comm.Barrier()`
+        * Forms a barrier, no processes in the communicator can pass the barrier **until all of them call** the function.
