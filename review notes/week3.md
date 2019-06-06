@@ -107,16 +107,44 @@
             * Need inter-process communication
         <img src="multicore.png" width="300"> 
         4. Non-Uniform Memory Access (NUMA)
-            * 每个CPU有独立的memory, CPU之间可以communicate
+            * 每个CPU有独立的memory, CPU之间可以交流
             * Speed up by allowing processor to access **its own local memory**, faster than non-local memory.
             * Key: allocate memory/processors in NUMA friendly ways (e.g. avoid inter-processor communication)
         <img src="multicore.png" width="300"> 
     * Operating System
+        1. Modern multi-core operating systems support different "forms" of parallisation
+            * parallel v.s. interleaved semantics (意义不明)
+        1. Compute parallelism
+            * Processes
+            * Threads
+        2. Data parallelism
+            * Cashing
+            * OS implies on "a" computer (意义不明)
     * Software / Applications
+        * 现在很多语言支持 parallel
+        * Most language now support a range of parallelisation / concurrency features
+            * Threads, thread pools, locks, ...
+        * Many language developed specifically for parallel/concurrent systems
+        * Key issues:
+            * Deadlock
+            * Livelock (processes constantly change with regard to one another, but none are progressing)
     * Some or all of these
+
+#### Message Passing Interface (MPI)
+* Widely adopted approach for message passing in parallel systems
+* Mappings to major language: Fortran, C, C++, Python, Java
+* **Key MPI functions**:
+    1. MPI_init: init MPI computation
+    2. MPI_Finalize: terminate computation
+    3. MPI_COMM_SIZE: number of processors
+    4. MPI_COMM_RANK: my process id
+    5. MPI_SEND: send a message
+    6. MPI_RECV: receive a message
+* Support **point-to-point** and **broadcast** communications
 
 #### Some Erroneous Assumptions of Distributed Systems
 1. Network is reliable
+* 
 2. Latency is zero
 3. Bandwith is infinite
 4. Network is secure
