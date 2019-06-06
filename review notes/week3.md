@@ -115,7 +115,7 @@
             * Speed up by allowing processor to access **its own local memory**, faster than non-local memory.
             * Key: allocate memory/processors in NUMA friendly ways (e.g. avoid inter-processor communication)
             <img src="multicore.png" width="300"> 
-            
+
     * Operating System
         1. Modern multi-core operating systems support different "forms" of parallisation
             * parallel v.s. interleaved semantics (意义不明)
@@ -147,14 +147,56 @@
     6. MPI_RECV: receive a message
 * Support **point-to-point** and **broadcast** communications
 
+(HT)Condor -> a specialiszed workload management system for compute-intensive jobs (跟spartan差不多)
+
+#### Data Parallelism Approaches
+* (在上面OS parallel出现过)
+* Challenges of big data
+* Distributed data
+    * CAP theorem (Consistency, Availability, Partition Tolerance)
+    * ACID <-> BASE (意义不明)
+* Distributed File Systems
+    * e.g. Hadoop, Lustre, ...
+
+#### Challenges with Distribution (Distributed Systems)
+* Distributed System -> one in which the failure of a computer you didn't even know existed can render your own computer unusable
+* General assumptions that typically don't hold in the real world
+
 #### Some Erroneous Assumptions of Distributed Systems
 1. Network is reliable
-* 
+    * 数据会传送到，顺序正确，无损坏 (not always true!)
+    * Send some data over the network
+        * Will arrive, in correct order, uncorrupted (无损坏)
+        * Consistency
+    * The Lower layers in the networking stack protect me from these issues
 2. Latency is zero
+    * Data arrive "now" (immediately)
 3. Bandwith is infinite
+    * Can send any amount of data i wish between nodes
 4. Network is secure
+    * Don't have to worry about:
+        1. People sending data to my services
+        2. People actively attacking me
+        3. People reading the data sent over the network
+        4. ...
 5. Topology doesn't change
+    * Node x is **always there**
+    * (Assume) Fixed:
+        1. Latency
+        2. IP
+        3. Route
+        4. Services
+    * Typically cannot guarantee the route taken, and hence latency
 6. There is one administrator
+    * One administrator of the distributed system
+    * 
 7. Transport cost is zero
+    * Can send as much data as I like for free
+    * Truth: NEVER FREE
 8. Network is homogenous
-9. Time is ubiquitous
+    * A wide range of network communication protocols
+9. Time is ubiquitous (无处不在)
+    * Time is same across all computers in the network
+10. And issues of heterogeneity of compute, data, security, ...
+
+#### Strategies for Development of Parallel/Distributed Systems
