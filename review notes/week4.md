@@ -14,4 +14,36 @@
     * More **efficient, economical, and scalable** method -> dominates supercomputing
 
 #### Parallel and Research Programming
-* 
+* Parallel Computing
+    * 数据和task分给多个processors处理
+    * Submission of jobs or processors over multiple processors and by **splitting up data or tasks** between them
+* Research Computing
+    * 研究人员用的，问题：数据产生的越来越：快，多，多样
+    * Software applications used by a research community to aid research
+    * Major problem: volume/velocity(产生速度)/variety (3V) of datasets increases, the researchers will need to be able to process this data
+
+#### HPC Cluster Design
+<img src="pic/hpc_design.png" width="400">
+
+#### Limitations of Parallel Computation
+* Speedup (p) = Time (Serial) / Time (Parallel)
+* Amdahl's law establishes the maximum improvement to a system (assumed fixed problem size)
+<img src="pic/amdahl3.png" width="400">
+
+#### Unimelb's HPC: Spartan
+* A model of a HPC-Cloud Hybrid
+* Featured in OpenStack and HPC Workload Management
+* Environment Module
+    * 用来改用户的environment
+    * Dynamic **modification** of the user's **environment** via module files (e.g. paths)
+    * Contains the necessary configuration info for user's session to operate according to the module loaded
+    * Advantage: 
+        * 给用户共享，并且可以安装同个应用的**不同版本**
+        1. Shared with many users on a system
+        2. Easily allowing multiple installations of the **same applications with different versions** and compilation options
+* Module commands
+    1. `module help` provides a list of switches, subcommands, and subcommand arguments
+    2. `module avail` lists **all modules** which are available to be loaded
+    3. `module whatis <modulefile>` description of the module
+    4. `module display <modulefile>` to see exactly what a given modulefile will do to your environment (e.g. what will be added to PATH)
+    5. `module load <modulefile>` add one or more module files to user's current environment
