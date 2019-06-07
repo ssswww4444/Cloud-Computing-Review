@@ -71,18 +71,29 @@
     * 只能管理数据和自己开发应用
     * public Paas Examples: Google App Engine, Microsoft Azure, Amazon Elastic MapReduce, ...
 
-#### NeCTAR
-* Instances 主机
+#### NeCTAR (with OpenStack)
+* Instances 主机/虚拟机
 * Volumes 硬盘
     * Can be attached / detached
     * Must be in the same availability zone as the instance
 * Images 映像
-    * 
+    * Instance的image通常有OS（有的有docker）
 * Flavor
+    * 多少核多少RAM
     * Defines the **compute, memory and storage** capacity
 * Snapshot
-    * 
-* Ephemeral Disk
+    * Snapshot of instance
+        * 复制一份root disk的state (File system + OS)
+        * Create copy of the **disk state** (root disk) of your instance in an **image**
+        * Not storing data on ephemeral disk
+    * Snapshot of volume
+        * 类似backup，但snapshot不是设计来backup用的
+        * Preserving the state of your volume in an **image**
+        * Same size as your volume
+* Ephemeral (短暂) Disk
+    * 临时用的disk，VM没了就没了
+    * Only persistent until the termination / rebuild of the VM, similar to the root disk
+    * Not persistence storage
 * Launching a new VM
     1. Choose Flavor
     2. Ephemeral Disk
@@ -91,5 +102,16 @@
     5. Select key pair
     6. Select security group
     7. Availability zone
+* Security Group
+    * 基本就是定义能不能SSH，HTTP什么的，还有对应的port
+    * A set of security rules which define network access control lists (ACLs)
+    * Rules are expressed as tuple of (direction, protocol, port, remote host IP)
+    * Default: allow SSH
 
 #### Ansible
+* Deploying complex cloud systems require a lot of moving parts -> need automation
+* Automation
+    * Provide record of what you did
+    * Condifies knowledge about the system
+    * Make process **repeatable**
+    * Make it programmable - "Infrastructure as Code"
