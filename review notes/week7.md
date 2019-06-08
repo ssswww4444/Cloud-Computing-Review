@@ -63,3 +63,26 @@
 * It is better to have an **odd** number of voting members
 
 <img src="pic/mongodb.png" width="400">
+
+#### MongoDB v.s. CouchDB Clusters
+* MongoDB clusters are considerably **more complex**
+* MongoDB clusters are **less available**
+    * By default, only primary nodes can talk to clients for read operations (and exclusively so for write operations)
+* MongoDB software **routers** (MongoS) must be embeded in the application
+    * while **any HTTP client** can connect to CouchDB
+* Losing 2 nodes out of 3
+    * In CouchDB example, means losing access to 1/4 of data
+    * In MongoDB example, means losing access to 1/2 of data
+* Some features not supported in MongoDB shard environment
+    * E.g. unique indexes
+
+#### Consistency, Availablility, Partition-Tolerance (CAP)
+1. Consistency (C)
+    * every client receiving an answer **receives the same answer** from all nodes in the cluster
+2. Availability (A)
+    * every client **receives an answer** from any node in the cluster
+3. Partition-Tolerance (P)
+    * the cluster **keep on operating** when on or more nodes **cannot communicate** with the rest of the cluster
+* Pick any 2, the intersection of 3 sets is **empty** !
+* Brewer's CAP theorem
+    * 
