@@ -240,13 +240,16 @@
 #### Docker
 * Docker Nomenclature (命名)
     1. Container
+        * 在跑的Image
         * **A process** that behaves like an independent machine, it is a **runtime instance** of a docker image
     2. Image
+        * APP + 所有需要跑这个APP的东西
         * A blueprint for a container
         * Execuable package that include everything needed to run an app
             * Code, libraries, runtime, environment variables, config files
         * Can be pulled from / pushed to Docker Registry
     3. Dockerfile
+        * 写来build image
         * The recipe to create an image
     4. Registry
         * A hosted service containing repositories of images
@@ -324,6 +327,21 @@ docker run --name nginx -p 8080:80 -d nginx
 ```
 
 #### Dockerfile
-* 
+* `FROM nginx`
+    * Use nginx as a parent/base image
+* `ENV WELCOME_STRING "nginx in Docker"`
+    * Set environment variable WELCOME_STRING to the string
+* `EXPOSE 80`
+    * Make port 80 available to the world outside this container
+* `WORKDIR /usr/share/nginx/html`
+    * Set the working directory for any instructions that follow it:
+        * `RUN`, `CMD`, `ENTRYPOINT`, `COPY`, and `ADD`
+* `RUN cp index.html index2.html`
+    * Terminal commands run at **build time**
+* `COPY["./entrypoint.sh", "/"]`
+    * Copy files / directories from src to dest
+* `ENTRYPOINT` get executed when the **container starts**
+    * `CMD` specifies arguments that will be fed to the ENTRYPOINT
+    * Unless it is overridden, **ENTRYPOINT always be executed**
 
 <img src="pic/dockerfile.png" width="400">
