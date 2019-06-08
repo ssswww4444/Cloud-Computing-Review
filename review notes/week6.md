@@ -133,14 +133,44 @@
     7. Integrate this resource into existing resources, using hypermedia links and forms 
     8. Consider the typical course of events: what’s supposed to happen?
     9. Consider error conditions: what might go wrong?
-* REST principles:
+* **REST principles**:
     1. Addressability
+        * 使用URI查找resource
     2. Uniform Interface
+        * 统一命名resource方式，操控方式，...
     3. Resources and Representations instead of RPC
     4. HATEOAS
+        * Hyper Media as Engine of Application State (HATEOAS)
+            * resource representations包含link to identified resources
+            * navigate link来使用resources和states
+            * RESTful applications _nagivate_ instead of _calling_
 * ReST - Uniform Interface
     * 4 more constraints:
         1. Identification of Resources
         2. Manipulation of Resources through representations
         3. Self-descriptive messages
+        4. HATEOAS
+* Comparing with RPC
+    1. RPC
+        * need to expose the available **functions**
+            * functions are essential for interacting with a service
+            * introspection or interface descriptions make functions discoverable
+    2. RESTful system
+        * use **Uniform Interface**
+            * no need to worry about functions
+            * find resources by
+                * following links from other resources
+                * learn about them by using URI templates
+                * understand them by recognizing representations
 
+#### HTTP Methods
+* HTTP Methods can be:
+    1. Safe
+        * GET, OPTIONS, HEAD
+        * repeating a call is equivalent to **not making a call at all**
+    2. Idempotent
+        * PUT, DELETE
+        * repeating a call is equivalent to **making a single call**
+    3. Neither
+        * POST
+        
