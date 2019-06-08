@@ -276,54 +276,54 @@
 
 #### Docker cheat sheet
 ```bash
-## List Docker CLI commands
-docker
-docker container --help
+    ## List Docker CLI commands
+    docker
+    docker container --help
 
-## Display Docker version and info
-docker --version
-docker version
-docker info
+    ## Display Docker version and info
+    docker --version
+    docker version
+    docker info
 
-## Execute Docker image
-docker run hello-world
+    ## Execute Docker image
+    docker run hello-world
 
-## List Docker images
-docker image ls
+    ## List Docker images
+    docker image ls
 
-## List Docker containers (running, all, all in quiet mode)
-docker container ls
-docker container ls --all
-docker container ls -aq
+    ## List Docker containers (running, all, all in quiet mode)
+    docker container ls
+    docker container ls --all
+    docker container ls -aq
 
-## Create Docker image using this directory's Dockerfile
-docker build -t friendlyhello .
+    ## Create Docker image using this directory's Dockerfile
+    docker build -t friendlyhello .
 
-## Run "friendlyhello" mapping port 4000 to 80
-docker run -p 4000:80 friendlyhello
+    ## Run "friendlyhello" mapping port 4000 to 80
+    docker run -p 4000:80 friendlyhello
 
-## Same thing, but in detached mode
-docker run -d -p 4000:80 friendlyhello 
+    ## Same thing, but in detached mode
+    docker run -d -p 4000:80 friendlyhello 
 
-## Gracefully stop the specified container
-docker container stop <hash> 
+    ## Gracefully stop the specified container
+    docker container stop <hash> 
 
-## Tag <image> for upload to registry
-docker tag <image> username/repository:tag
+    ## Tag <image> for upload to registry
+    docker tag <image> username/repository:tag
 
-## Upload tagged image to registry
-docker push username/repository:tag 
+    ## Upload tagged image to registry
+    docker push username/repository:tag 
 
-## Run image from a registry
-docker run username/repository:ta
+    ## Run image from a registry
+    docker run username/repository:ta
 
-## 2 Options to run a docker container
-# 1. Create a container, then start the container
-docker create --name nginx -p 8080:80 nginx
-docker start nginx
+    ## 2 Options to run a docker container
+    # 1. Create a container, then start the container
+    docker create --name nginx -p 8080:80 nginx
+    docker start nginx
 
-# 2. Run a container
-docker run --name nginx -p 8080:80 -d nginx
+    # 2. Run a container
+    docker run --name nginx -p 8080:80 -d nginx
 ```
 
 #### Dockerfile
@@ -345,3 +345,33 @@ docker run --name nginx -p 8080:80 -d nginx
     * Unless it is overridden, **ENTRYPOINT always be executed**
 
 <img src="pic/dockerfile.png" width="400">
+
+#### Docker compose
+* Defining and running **multi-container** Docker applications
+* 3 steps:
+    1. Define your app’s environment with a `Dockerfile` so it can be reproduced anywhere.
+    2. Define the services that make up your app in `docker-compose.yml` so they can be run together in an isolated environment.
+    3. Run `docker-compose up` and Compose starts and runs your entire app.
+
+```bash
+    ## Start the containers
+    docker-compose up -d
+
+    ## Stop the containers
+    docker-compose stop
+
+    ## Remove the containers
+    docker-compose down
+```
+
+<img src="pic/compose.png" width="250">
+
+#### Docker SWARM
+* A Docker orchestration tool
+* Why Docker SWARM
+    1. Hundreds of containers to manage
+    2. Scalability
+    3. Self-healing
+    4. Rolling updates
+    5. And more, ...
+* 
