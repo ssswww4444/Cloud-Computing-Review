@@ -215,9 +215,9 @@
 * Similar concept of resource isolation and allocations as a VM
 * Without bundling the **entire hardware environment and full OS**
 * Container technologies: ***Docker***, Rocket, Mesos, LxD, ...
-* Container orchestration
+* Container Orchestration
     * 用来整合和管理大量的container
-    * Provide a framework for integrating and managing containers **at scale**
+    * Provide a framework for _integrating_ and _managing_ containers **at scale**
     * Features:
         1. Networking
         2. Scaling
@@ -228,4 +228,68 @@
     * Goal:
         * Simplify container management processes
         * Help to manage availability of containers
-* 
+* Container Orchestration Tools
+    1. Kubernetes and Hosted Kunerbetes
+        * Self-hosted Kubernetes
+        * Amazon's Elastic Kubernetes Service (EKS)
+        * Google Kubernetes Engine (GKE)
+        * Azure Kubernetes Service (AKS)
+    2. Docker SWARM
+    3. Others
+
+#### Docker
+1. Container
+    * **A process** that behaves like an independent machine, it is a **runtime instance** of a docker image
+2. Image
+    * A blueprint for a container
+    * Execuable package that include everything needed to run an app
+        * Code, libraries, runtime, environment variables, config files
+3. Dockerfile
+    * The recipe to create an image
+4. Registry
+5. Repository
+6. Tag
+7. Docker Compose
+8. Docker SWARM
+
+#### Docker cheat sheet
+```bash
+## List Docker CLI commands
+docker
+docker container --help
+
+## Display Docker version and info
+docker --version
+docker version
+docker info
+
+## Execute Docker image
+docker run hello-world
+
+## List Docker images
+docker image ls
+
+## List Docker containers (running, all, all in quiet mode)
+docker container ls
+docker container ls --all
+docker container ls -aq
+```
+
+```bash
+docker build -t friendlyhello .  # Create image using this directory's Dockerfile
+docker run -p 4000:80 friendlyhello  # Run "friendlyhello" mapping port 4000 to 80
+docker run -d -p 4000:80 friendlyhello         # Same thing, but in detached mode
+docker container ls                                # List all running containers
+docker container ls -a             # List all containers, even those not running
+docker container stop <hash>           # Gracefully stop the specified container
+docker container kill <hash>         # Force shutdown of the specified container
+docker container rm <hash>        # Remove specified container from this machine
+docker container rm $(docker container ls -a -q)         # Remove all containers
+docker image ls -a                             # List all images on this machine
+docker image rm <image id>            # Remove specified image from this machine
+docker image rm $(docker image ls -a -q)   # Remove all images from this machine
+docker login             # Log in this CLI session using your Docker credentials
+docker tag <image> username/repository:tag  # Tag <image> for upload to registry
+docker push username/repository:tag            # Upload tagged image to registry
+docker run username/repository:tag                   # Run image from a registry
+```
