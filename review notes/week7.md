@@ -32,3 +32,34 @@
         * CouchDB and MongoDB
 
 #### CouchDB Cluster Architecture
+* Answer requests
+    * **All nodes answer requests** (read/write) at the same time
+* Sharding
+    * **Sharding** (splitting of data across nodes) is done on every node
+* When a node does not contain a document"
+    * the node **request it from another node** and returns it to the client
+* Nodes can be added/removed easily
+    * Their shards are **_re-balanced_** automatically upon addition/deletion of nodes
+
+<img src="pic/couchdb.png" width="250">
+
+#### MongoDB Cluster Architecture
+* Sharing
+    * **Sharding** is done at the _replica set_ level
+    * Hence involve more than one cluster
+    * (a shard is on the top of a replica set)
+* Read/write requests
+    * only **primary node** in a replica set answer **write** request
+    * but **read** requests can (depending on the specific configuration) be answered by **every node** (including secondary nodes) in the set
+* Updates
+    * updates flow only from the primary to the secondary (node)
+* Primary node fails
+    * if a primary node fails, or discovers it is connected to a minority of nodes
+    * a secondary of the same replica set is **elected as the primary**
+* Arbiters (用来break tie的)
+    * Arbiters: MongoDB instances without data
+    * can assist in **breaking a tie** in the **election**
+* Data are balanced across replica sets
+* It is better to have an **odd** number of voting members
+
+<img src="pic/mongodb.png" width="400">
