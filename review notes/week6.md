@@ -174,3 +174,58 @@
     3. Neither
         * POST
         
+#### REST 2.0
+* Motivation
+    * Everything as a Service (EaaS) paradigm
+    * Vast number of entities and services
+    * Link services together to create workflows and mashups (混搭)
+* Solution
+    * Extend the API notation from mainly desktop application to web apps and create mobile platform
+    * Create **API hubs** that aim to facilitate the sharing and usage of services among developers, testers, and in some case, end users.
+
+#### Containerisation and Docker
+* Virtualisation v.s. Containerisation
+    1. Virtualisation
+        * 每个VM都有自己的OS，memory，disk等，浪费资源
+        * Advantages
+            * Application containment
+            * Horizontal scalability (量)
+        * Cost: Resource
+        * Guest OS (VM里的OS) & binaries can give rise to (造成) duplications between VMs **wasting** server processors, memory, disk space, and limiting the number of VMs each server can support
+    2. Containerization
+        * 多个container可以共用一个VM的OS，每个container只包括app和相关的binaries，减少资源消耗
+        * Allows **virtual instances** to **share** a single host OS (and associated drivers, binaries, libraries) to reduce wasted resources
+        * Since **each container only hold the application and related binaries**
+        * The rest are shared among the containers
+
+    <img src="pic/container.png" width="400">
+    <img src="pic/container2.png" width="400">
+
+    * In the real world, VMs and Containers can co-exist
+        * Usually Docker containers are deployed on the top of VMs
+    * Container Better than VMs?
+        * It depends on:
+            * size of the task
+            * life span of the application
+            * security concern
+            * host OS (installed on a computer, interacts with underlying hardware)
+
+
+#### Container
+* Similar concept of resource isolation and allocations as a VM
+* Without bundling the **entire hardware environment and full OS**
+* Container technologies: ***Docker***, Rocket, Mesos, LxD, ...
+* Container orchestration
+    * 用来整合和管理大量的container
+    * Provide a framework for integrating and managing containers **at scale**
+    * Features:
+        1. Networking
+        2. Scaling
+        3. Service discovery and load balancing
+        4. Health check and self-healing
+        5. Security
+        6. Rolling updates
+    * Goal:
+        * Simplify container management processes
+        * Help to manage availability of containers
+* 
