@@ -95,13 +95,14 @@
         1. Hardware Threading CPU
             * 多个CU，共享基本运算unit
             * Multiple control units, share arithmetic (基本运算) unit (Integer, Floating point, vector)
-            
+
             <img src="pic/threading_cpu.png" width="250"> 
 
         2. Multi-Core
             * 多个CU，独立基本运算unit
             * Can process data and perform computational tasks in parallel
             * Share same cache
+            
             <img src="pic/multicore.png" width="250"> 
 
         3. Symmetric Multiprocessing (SMP)
