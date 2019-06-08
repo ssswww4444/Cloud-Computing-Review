@@ -193,7 +193,7 @@
         * Cost: Resource
         * Guest OS (VM里的OS) & binaries can give rise to (造成) duplications between VMs **wasting** server processors, memory, disk space, and limiting the number of VMs each server can support
     2. Containerization
-        * 多个container可以共用一个VM的OS，每个container只包括app和相关的binaries，减少资源消耗
+        * 多个container可以共用Host的OS，每个container只包括app和相关的binaries，减少资源消耗
         * Allows **virtual instances** to **share** a single host OS (and associated drivers, binaries, libraries) to reduce wasted resources
         * Since **each container only hold the application and related binaries**
         * The rest are shared among the containers
@@ -238,25 +238,38 @@
     3. Others
 
 #### Docker
-1. Container
-    * **A process** that behaves like an independent machine, it is a **runtime instance** of a docker image
-2. Image
-    * A blueprint for a container
-    * Execuable package that include everything needed to run an app
-        * Code, libraries, runtime, environment variables, config files
-3. Dockerfile
-    * The recipe to create an image
-4. Registry
-    * A hosted service containing repositories of images
-    * E.g. Docker Hub
-5. Repository
-    * A set of Docker images
-6. Tag
-    * A **label** applied to a Docker image in a repository
-7. Docker Compose
-    * A tool for defining and running **multi-containers Docker applications**
-8. Docker SWARM
-    * A standalone naive clustering / **orchestration tool** for docker
+* Docker Nomenclature (命名)
+    1. Container
+        * **A process** that behaves like an independent machine, it is a **runtime instance** of a docker image
+    2. Image
+        * A blueprint for a container
+        * Execuable package that include everything needed to run an app
+            * Code, libraries, runtime, environment variables, config files
+        * Can be pulled from / pushed to Docker Registry
+    3. Dockerfile
+        * The recipe to create an image
+    4. Registry
+        * A hosted service containing repositories of images
+        * E.g. Docker Hub
+    5. Repository
+        * A set of Docker images
+    6. Tag
+        * A **label** applied to a Docker image in a repository
+    7. Docker Compose
+        * A tool for defining and running **multi-containers Docker applications**
+    8. Docker SWARM
+        * A standalone naive clustering / **orchestration tool** for docker
+* Managing data in docker
+    * By default, data inside a Docker container **won't be persisted** when a **container is no longer exist**
+    * You can **copy data** in and out of a container
+    * Docker has two options for containers to store files on the host machine:
+        1. Docker volumes
+            * managed by Docker, /var/lib/docker/volume/
+        2. Bind mounts
+            * managed by user, anywhere on the file system
+* Running a shell in a container (not recommended)
+    * Instead of using SSH to access a VM, a container can be accessed with **exec** command
+    * `docker exec [OPTIONS] CONTAINER COMMMAND [ARG]`
 
 #### Docker cheat sheet
 ```bash
@@ -280,26 +293,37 @@ docker container ls
 docker container ls --all
 docker container ls -aq
 
-### Create Docker image using this directory's Dockerfile
+## Create Docker image using this directory's Dockerfile
 docker build -t friendlyhello .
 
-# Run "friendlyhello" mapping port 4000 to 80
+## Run "friendlyhello" mapping port 4000 to 80
 docker run -p 4000:80 friendlyhello
 
-# Same thing, but in detached mode
+## Same thing, but in detached mode
 docker run -d -p 4000:80 friendlyhello 
 
-# Gracefully stop the specified container
+## Gracefully stop the specified container
 docker container stop <hash> 
 
-# Tag <image> for upload to registry
+## Tag <image> for upload to registry
 docker tag <image> username/repository:tag
 
-# Upload tagged image to registry
+## Upload tagged image to registry
 docker push username/repository:tag 
 
-# Run image from a registry
+## Run image from a registry
 docker run username/repository:ta
+
+## 2 Options to run a docker container
+# 1. Create a container, then start the container
+docker create --name nginx -p 8080:80 nginx
+docker start nginx
+
+# 2. Run a container
+docker run --name nginx -p 8080:80 -d nginx
 ```
 
 #### Dockerfile
+* 
+
+<img src="pic/dockerfile.png" width="400">
