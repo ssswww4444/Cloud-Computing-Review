@@ -53,7 +53,7 @@
     4. Permanent storage for read/write data into/out of memory
     5. Balance of all of these (key importance, especially for HPC)
 
-* Flynn's Taxonomy (分类系统)
+* Flynn's Taxonomy (分类系统，硬件)
     <img src="pic/taxonomy.png" width="400"> 
     1. Single Instruction, Single Data Stream (SISD)
         * 对一份数据，执行一个instruction
@@ -95,26 +95,27 @@
         1. Hardware Threading CPU
             * 多个CU，共享基本运算unit
             * Multiple control units, share arithmetic (基本运算) unit (Integer, Floating point, vector)
-            <img src="pic/threading_cpu.png" width="300"> 
+            
+            <img src="pic/threading_cpu.png" width="250"> 
 
         2. Multi-Core
             * 多个CU，独立基本运算unit
             * Can process data and perform computational tasks in parallel
             * Share same cache
-            <img src="pic/multicore.png" width="300"> 
+            <img src="pic/multicore.png" width="250"> 
 
         3. Symmetric Multiprocessing (SMP)
             * 多个CU，独立cache和基本运算unit，但共享main memory (跑不同program)
             * Two or more identical processors connected to a single, shared main memory
             * Each processor executes different programs and works on different data but with capability of sharing common resources
             * Need inter-process communication
-            <img src="pic/multicore.png" width="300"> 
+            <img src="pic/smp.png" width="400"> 
 
         4. Non-Uniform Memory Access (NUMA)
             * 每个CPU有独立的memory, CPU之间可以交流
             * Speed up by allowing processor to access **its own local memory**, faster than non-local memory.
             * Key: allocate memory/processors in NUMA friendly ways (e.g. avoid inter-processor communication)
-            <img src="pic/multicore.png" width="300"> 
+            <img src="pic/numa.png" width="400"> 
 
     * Operating System
         1. Modern multi-core operating systems support different "forms" of parallisation
