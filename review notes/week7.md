@@ -85,4 +85,26 @@
     * the cluster **keep on operating** when on or more nodes **cannot communicate** with the rest of the cluster
 * Pick any 2, the intersection of 3 sets is **empty** !
 * Brewer's CAP theorem
-    * 
+    * All three qualities are symmetrical
+        * Consistency and Availability are at odds (争执/不一致) when a Partition happens
+    * Network partitions
+        * "Hard" ones may be rare
+        * "Soft" ones not rare
+            * slow node
+        * Utimately (最后), every partition is detected by a timeout
+        * Can have consequences (of partitions) that impact the cluster as a whole
+            * E.g. a distributed join is only complete when all sub-queries return
+        * Traditional DBMS architecture were not concerned with network partitions
+            * since all data were supposed to be in a small, co-located cluster of servers
+        * The emphasis on numerous commodity (有益的) servers, can result in an increased number of **hardware failures**
+    * CAP theorem forces us to consider **trade-offs** among different options
+
+#### Classification of distributed processing algorithms
+1. Two-phase commit
+    * Consistency & Availbility
+2. Paxos
+    * Consistency & Partition-Tolerance
+3. Muti-Version Concurrency Control (MVCC)
+    * Availability & Partition-Tolerance
+    
+<img src="pic/cap.png" width="400">
