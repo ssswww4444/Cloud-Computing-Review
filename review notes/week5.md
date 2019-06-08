@@ -108,10 +108,150 @@
     * Rules are expressed as tuple of (direction, protocol, port, remote host IP)
     * Default: allow SSH
 
-#### Ansible
-* Deploying complex cloud systems require a lot of moving parts -> need automation
+#### Automation with Ansible
+* Deploying complex cloud systems require a lot of moving parts -> **NEED AUTOMATION**
+    * Easy to forget what software you installed, and what steps you took to configure the system (比如安装软件和设置环境/变量)
+    * Manual process is error-prone, can be non-repeatable
+    * Snapshots are monolithic (巨大) - provide no record of what has changed
 * Automation
     * Provide record of what you did
     * Condifies knowledge about the system
     * Make process **repeatable**
     * Make it programmable - "Infrastructure as Code"
+    * **Make servers reach a desirable _state_**
+* Cloud-focused
+    * Used to **interact with cloud services**
+        * 比如调用OpenStack来建立instance
+        * Apache JClouds, Boto, OpenStackClient, ...
+* Shell scripts
+    * Bash
+    * Perl
+    * 或者ansible用的YAML之类的
+* Configuration Management (CM) tools
+    * CM - the process of **systematically handling changes** to a system in a way that it **maintains integrity** over time.
+
+#### Ansible (a CM tool)
+* Automation tool for **configuring and managing computers**
+    * Finer grained setup and configuration of software packages
+* Combines multi-node software deployment
+* Ad-hoc **task** execution and configuration management
+    * Configuring thousands of machine manually
+* Easy to learn
+    * Playbooks in YAML
+    * Sequential Execution
+* Minimal Requirements
+    * 不需要专门管理这些的server
+    * No need for centralized management servers/daemons 
+    * Single command to install (pip install ansible)
+    * Uses SSH to connect to target machine
+* Idempotent (repeatable)
+    * Executing N times no different to executing once
+    * Prevent side-effects from re-running scripts
+* Extensible
+    * Can write your own modules
+* More Features
+    * Support push or pull
+    * Rolling updates
+    * Inventory management
+    * Ansible Vault for encrypted data
+    * Ad-hoc commands
+        * Execute a one-off command against your inventory
+    * Ansible Galaxy
+    * Ansible Tower (Enterprise control for Ansible)
+        * Dashboard, System Tracker, ...
+* Ansible Playbooks are expressed in YAML
+    * YAML: YAML Ain't Markup Language
+    * YAML is a human friendly data serialization standard for all programming lnaguages
+* Ansible use Jinja2 template for **dynamic expression**
+    * Jinja2 is a modern and designer-friendly templating language for Python, modelled after Django's templates
+* Structure
+    * Ansible scripts are called **playbooks**, written as simple YAML files
+    * Structured in simple folder hierarchy
+        * Inventory: hostS and host groups
+    <img src="pic/ansible.png" width="250">
+    * Executed Sequentially from a YAML file
+    <img src="pic/ansible2.png" width="400">
+
+#### Create an instance with Ansible
+* Download `openrc.sh` from Dashboard
+* Prerequisite: (需要的信息)
+    1. Instance flavor: uom.general.2c8g
+    2. Availability Zone: melbourne-qh2-uom
+    3. Image Id: 8d49e526-802c-4b90-a318-f64a87f07039
+* Then, use playbook to interact with Melbourne Research Cloud
+    1. Define some variables in vars.yml
+        * e.g. prerequisites above: flavor, zone, ...
+    2. Pip install **openstacksdk** to interact with OpenStack API
+    3. Retrieve all available OpenStack images
+        * use module from OpenStack API: "os_image_fact"
+    4. Get image names and Ids
+        * loop through variable "{{ openstack_image }}"
+        * put all names and ids into a list called "image_facts"
+    5. Create an instance
+        * use module from OpenStack API: "os_server"
+    6. Get the ip address of the instance
+    7. Create Security group
+        * use module from OpenStack API: "os_security_group"
+    8. ...
+    9. In the final playbook
+        * `gather_facts`  to gather facts from OS of the host
+        * Run the roles sequentially
+            * Has dependencies between roles (need correct order)
+
+        <img src="pic/nectar.png" width="200">
+    10. Run the playbook
+        1. `./openrc.sh`
+        2. `ansible-playbook --ask-become-pass nectar.yaml`
+
+#### 补充一些playbook的说明
+1. YAML files
+    * Start with `---`
+    * End with `...`
+2. YAML Syntax
+    * Lists
+    ``` YAML
+        fruits:
+            - Apple
+            - Orange
+            - Strawberry
+    ```
+    * Dictionary:
+    ``` YAML
+        martin:
+            name: Martin D'vloper
+            job: Developer
+            skill: Ellite
+    ```
+    * Boolean
+    ``` YAML
+        create_key: yes
+        know_oops: TRUE
+        likes_emacs: True
+    ```
+    * Double Quotes: can use escape, preserve colons
+    ``` YAML
+        foo: "a \t TAB and a \n : NEWLINE"
+    ```
+    * Variables
+    ``` YAML
+        "{{ web_service_name }}"
+    ```
+    * Become: privilege escalation (priviledged user)
+    ``` YAML
+        - hosts: webservers
+          remote_user: yourname
+          become: yes
+    ```
+    * vars: define variables for this play
+        ``` YAML
+        - hosts: webservers
+          vars:
+            http_port: 80
+            max_clients: 200
+            remote_user: root
+          tasks:
+            - name: ensure apache is at the latest version
+              yum:
+                name: httpd
+                state: latest
+        ```
