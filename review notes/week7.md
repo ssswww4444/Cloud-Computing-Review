@@ -95,16 +95,27 @@
         * Can have consequences (of partitions) that impact the cluster as a whole
             * E.g. a distributed join is only complete when all sub-queries return
         * Traditional DBMS architecture were not concerned with network partitions
-            * since all data were supposed to be in a small, co-located cluster of servers
+            * since all data were supposed (在traditional的DBMS) to be in a small, co-located cluster of servers
         * The emphasis on numerous commodity (有益的) servers, can result in an increased number of **hardware failures**
     * CAP theorem forces us to consider **trade-offs** among different options
 
 #### Classification of distributed processing algorithms
 1. Two-phase commit
     * Consistency & Availbility
+    * usual algorithm used in relational DBMS's (and MongoDB, to some extent)
+    * Enforce **Consistency** by:
+        * 锁定要用的数据，预写log，所有node都perform了才commit，如果有partition就rollback
+        * locking data that are within the trasaction scope
+        * Performing transactions on write-ahead (预写) logs
+        * Completing transactions (commit) **only** when all nodes in the cluster have performed the transaction
+        * **Abort** transactions (rollback) when a partition is detected
+    * The procedure entails (意味着):
+        * reduced availbility (data lock, **stop in case of partition**)
+        * enforced consistency
+    * A good solution when the cluster is co-located, less good when it is distributed
 2. Paxos
     * Consistency & Partition-Tolerance
 3. Muti-Version Concurrency Control (MVCC)
     * Availability & Partition-Tolerance
-    
+
 <img src="pic/cap.png" width="400">
