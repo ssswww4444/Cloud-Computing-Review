@@ -393,21 +393,6 @@ services:
       placement:
         constraints: [node.role == manager]
 
-  vote:
-    image: dockersamples/examplevotingapp_vote:before
-    ports:
-      - "5000:80"
-    networks:
-      - frontend
-    depends_on:
-      - redis
-    deploy:
-      replicas: 2
-      update_config:
-        parallelism: 2
-      restart_policy:
-        condition: on-failure
-
 networks:
   frontend:
   backend:
@@ -416,8 +401,6 @@ volumes:
   db-data:
 
 ```
-
-<img src="pic/compose.png" width="250">
 
 #### Docker SWARM
 * A Docker orchestration tool
