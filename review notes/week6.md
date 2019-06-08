@@ -410,4 +410,7 @@ volumes:
     3. Self-healing
     4. Rolling updates
     5. And more, ...
+* **Raft consensus group** consist of internal distributed state store and all manager nodes
+    * **Internal Distributed State Store** is a built-in key-value store of Docker Swarm mode
 * 
+<img src="pic/swarm.png" width="400">
