@@ -364,6 +364,59 @@
     docker-compose down
 ```
 
+Example of `docker-compose.yml`:
+```YAML
+version: "3.7"
+services:
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379"
+    networks:
+      - frontend
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+
+  db:
+    image: postgres:9.4
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - backend
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+
+  vote:
+    image: dockersamples/examplevotingapp_vote:before
+    ports:
+      - "5000:80"
+    networks:
+      - frontend
+    depends_on:
+      - redis
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 2
+      restart_policy:
+        condition: on-failure
+
+networks:
+  frontend:
+  backend:
+
+volumes:
+  db-data:
+
+```
+
 <img src="pic/compose.png" width="250">
 
 #### Docker SWARM
