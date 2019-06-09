@@ -249,4 +249,23 @@
     * Note: since RDD immutable, the r**esult of final transformation is cached**, not the input RDD
 
 #### Tunning the degree of parallelism (Spark)
-* 
+* Spark partitions data across the cluster according to some **heuristic**
+    * however, sometimes useful to force it to partition data in a **given number of pieces**
+* Some transformations allow for a **second param** containing the **desired number of partitions**
+    * e.g. `sc.textFile("bigFile.csv", 10)`
+* An RDD can also be re-partitioned explicitly
+    * `rdd.repartion(partitionNum)`
+* Another way to partition an RDD: **partitioner**
+    * a strategy to guide the partitioning 
+    * e.g. `rdd.partitionBy(new HashPartitioner(100))`
+
+#### Spark Jobs, Tasks, Stages
+1. **Job**
+    * **overall processing** that Spark is directed to perform by a driver program
+    * Composed of **more than one stage** when data are to be transferred across nodes (shuffling)
+2. **Task**
+    * single transformation operating on a single partition of data on a single node
+3. **Stage**
+    * 数据有transfer的话要用不同stage？
+    * a set of task on a single partition
+* The fewer the number of stages, the faster the computation (shuffling data across the cluster is slow)
