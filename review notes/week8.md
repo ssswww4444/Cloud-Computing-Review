@@ -200,7 +200,8 @@
         * meant to be used only once, then discarded
         * (they can be cached, if improve performance)
     3. **Lazily-evaluated**
-        * 很少evaluate，只有在数据没发放在RDD才evaluate
+        * 可以说Evaluate = Action
+        * 有Action的时候RDD才真的做运算，之前的Transformation都只是事先声明了要这么transform
         * the evaluation process happens only when data cannot be kept in an RDD, as when (比如): (these are called **actions**)
             1. the _number of objects_ in an RDD has to be computed
             2. an RDD has to be _written to a file_
