@@ -182,6 +182,39 @@
         * similar rows are stored on the same node
 
 #### Replication & Sharding
-1. 
+* Replication
+    * action of **storing the same row (or document)** on different nodes to make the database fault-tolerant
+    * replication & sharding can be combined with the objective of: 
+        1. **maximizing availability** 
+        2. maintaining a minimum level of data safety
+    * nomenclature (命名)
+        * `n` is the number of replicas
+        * `q` is the number of shards
+        * `n*q` is the total number of shard files distributed in he different nodes of the cluster
 
 #### MapReduce algorithm
+* Particularly suited to parallel computing of **Single-Instruction Multiple Data(SIMD)** type
+* Steps:
+    1. **Distribute**
+        * distribute data across machines
+    2. **Reduce**
+        * hierarchically summarizes them until the result is obtained
+* Advantage lies in:
+    * **moving process** to where data are, greatly **reducing network traffic**
+
+<img src="pic/mapreduce.png" width="400">
+
+
+
+#### Intro to Couchdb
+* Why CouchDB?
+    * open-source
+    * has MapReduce queries
+    * easy to setup a cluster
+    * has sharding and replication
+    * HTTP API makes it easy to _interact_ with
+* Main feature:
+    * Document-oriented DBMS
+        * Documents expressed in JavaScript Object Notation (JSON)
+    * HTTP ReST API
+    * 
