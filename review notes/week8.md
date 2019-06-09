@@ -190,6 +190,7 @@
         * data are split into chunks, and these chunks are sent to **different nodes**
     * **Dataset**
         * a dataset is just a collection of objects, hence very generic
+* **crucial** to writing programs in Spark
 * Properties
     1. Immutable
         * once defined, they cannot be changed
@@ -199,4 +200,6 @@
         * (they can be cached, if improve performance)
     3. Lazily-evaluated
         * 很少evaluate，只有在数据没发放在RDD才evaluate
-        * the evaluation process happens only when data cannot be kept in an RDD
+        * the evaluation process happens only when data cannot be kept in an RDD, as when:
+            * the number of objects in an RDD has to be computed, or an RDD has to be written to a file (called **_actions_**), 
+            * but not when an RDD are transformed into another RDD (called **_transformations_**)
