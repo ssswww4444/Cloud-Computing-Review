@@ -229,3 +229,24 @@
 ---
 
 #### Order of Execution of MapReduce Tasks
+* Execution order of Hadoop MapReduce is **fixed**
+    * Lazy evaluation of Spark -> allows developers to stop worrying about it, and have **Spark optimizer** to take care of it
+* Driver program can be **divided into steps** that are easier to understand without sacrificing performance
+    * as long as those steps are composed of **transformations**
+* Examples of **transformations** of RDD
+    * 产生新的RDD
+    <img src="pic/transformations.png" width="350">
+* Examples of **actions** of RDD
+    * 注意: `rdd.foreach(lambda)`也是action
+    <img src="pic/actions.png" width="350">
+* Examples of Key/Value Pair Transformations
+    <img src="pic/key_value.png" width="350">
+
+#### **Caching** Intermediate Results
+* Spark好处之一
+* `rdd.persist(storageLevel)` can be used to **save** an RDD either in memory and/or disk
+    * The `storageLevel` can be tuned into different **mix of use of RAM or disk** to store the RDD
+    * Note: since RDD immutable, the r**esult of final transformation is cached**, not the input RDD
+
+#### Tunning the degree of parallelism (Spark)
+* 
