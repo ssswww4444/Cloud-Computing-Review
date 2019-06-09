@@ -115,7 +115,73 @@
     * A good solution when the cluster is co-located, less good when it is distributed
 2. Paxos
     * Consistency & Partition-Tolerance
+    * Driven by consensus (共识)
+    * 投票机制，proposer发起一个value，accepter接受或者拒绝，达到一定数量的acceptance话，就发个确认信息告诉accepters最终同意的value
+    * Every node is either a **proposer** or an **accepter**
+        * **propose**
+            * propose a value (with a timestamp)
+        * **accepter**
+            * accept or refute
+            * E.g. if the accepter recives a more recent value
+    * When a proposer has received a **sufficient number of acceptances** (a quorum)
+        * a confirmation message is sent to the _accepters_ with the **agreed value**
 3. Muti-Version Concurrency Control (MVCC)
     * Availability & Partition-Tolerance
+    * 可以同时update，每个都有revision number，partition的时候request都会被accept，结束partition的时候会有conflict (相同的revision number)，需要resolve
+    * **Concurrent updates** are possible without distributed locks
+        * since the updates will have different **revision numbers**
+        * transactions that completes last will get a higher revision number, hence will be considered as the **current value**
+    * In case of **cluster partition** and **concurrent requests** with the **same revision number** going to two parititioned nodes
+        * Both are accepted
+        * But once the partition in solved, there would be a **conflict**
+        * Conflicts would have to be solve somehow
+            * E.g. CouchDB returns a list of all current conflicts, which are then left to be solved by the application
 
 <img src="pic/cap.png" width="400">
+
+
+#### Why Document-oriented DBMS for Big data?
+* 虽然relational DBMBs能很好的保证Consistency和Availability，但是他的normalisation产生的fine-grained data比起coarse-grained data，更不助于partition-tolerance
+* While relational DBMSs are extremely good for ensuring consistency and availability, the **normalization** that lies at the heart of a relational database model implies **fine-grained data**, which are less conducive to partition-tolerance than coarse-grained data
+* Example:
+    * a typical contact database in a **relational** data model may include:
+        * a person table
+        * a telephone table
+        * an email table
+        * an address table
+    * all related to each other
+    * same database in a **document-oriented** database would entail **one document type** only, with telephone numbers, email address, etc. (nested as arrays in the _same document_)
+
+#### MongoDB v.s. CouchDB clusters
+* CouchDB -> MVCC
+* MongoDB -> mix of:
+    * Two-phase commit
+        * replicating data from primary to secondary nodes
+    * Paxos-like
+        * to elect primary node in a replica-set
+
+#### Sharding
+* Partitioning of a database "horizontally"
+    * the database rows (or documents) are partitioned into subsets that are stored on different servers
+    * each **subset of rows (or documents)** is called a **shard**
+* Usually
+    * _number of rows_ > _number of replicas_
+    * _number of nodes_ > _number of replicas_
+    * number of replicas usually set to 3
+* Main advantage:
+    * improvement of **performance** through the **distribution of computing load** across nodes
+    * make it easier to move data files around
+        * e.g. when adding new nodes to the cluster
+* The number of shard dictates the (meaningful) number of nodes
+    * the maximum number of nodes = the number of shards
+    * lest (生怕) a node contains the same shard file twice
+* Different sharding strategies:
+    1. Hard sharding
+        * distribute rows **evenly** across the cluster
+    2. Range sharding: 
+        * similar rows are stored on the same node
+
+#### Replication & Sharding
+1. 
+
+#### MapReduce algorithm
