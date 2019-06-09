@@ -86,29 +86,33 @@
     * One of the strong points of Spark is the **tighjtly-coupled** nature of its main components
     <img src="pic/spark.png" width="400">
     * Spark ships with a cluster manager of its own, but it can work with other cluster managers, such as **YARN or MESOS**
-* Programming on Spark
-    * mostly written in **Scala**, and uses this language by default in its interactive shell
-        * however, APIs of Spark can be accessed by different languages: R, Python, and Java
-    * Scala
-        * multi-paradigm language: both functional and object-oriented
-        * runs on JVM and can use Java libraries and Java objects
-    * Most popular language used to develop Spark: Python and Java
-        * other than Scala, there is a shell for Python (pySpark)
-* Getting data in/out of Spark
-    * Spark can read/write data in many formats, from text file to database, and it can use different file systems and DBMSs
-    * Simplest way to get data into Spark (csv):
-        * reading data from a csv file from the local file system
-        * with a small change, Spark can be made to read from HDFS file system
-        * `csv = sc.textFile("hdfs://file.csv")`
-    * Another popular format: JSON
-    * An efficient data format that is **unqiue** to Hadoop is: **sequence file**
-        * a flat file composed of key/value pairs
-    * Another option to load/save data:
-        * serialised Java objects (Kryo library)
-        * simple to implement, but neither faster nor robust
-    * **HDFS or distributed DBMSs** can be used in conjunction with Spark
-    * SQL queries can also be used to extract data
-        * `df = sqlContext.sql("SELECT * FROM table")`
-    * Relational DBMSs can be a source of data too
-        * e.g. via JDBC
-    * CouchDB, MangoDB, and ElasticSearch connectors are available
+
+#### Programming on Spark
+* mostly written in **Scala**, and uses this language by default in its interactive shell
+    * however, APIs of Spark can be accessed by different languages: R, Python, and Java
+* Scala
+    * multi-paradigm language: both functional and object-oriented
+    * runs on JVM and can use Java libraries and Java objects
+* Most popular language used to develop Spark: Python and Java
+    * other than Scala, there is a shell for Python (pySpark)
+
+#### Getting data in/out of Spark
+* Spark can read/write data in many formats, from text file to database, and it can use different file systems and DBMSs
+* Simplest way to get data into Spark (csv):
+    * reading data from a csv file from the local file system
+    * with a small change, Spark can be made to read from HDFS file system
+    * `csv = sc.textFile("hdfs://file.csv")`
+* Another popular format: JSON
+* An efficient data format that is **unqiue** to Hadoop is: **sequence file**
+    * a flat file composed of key/value pairs
+* Another option to load/save data:
+    * serialised Java objects (Kryo library)
+    * simple to implement, but neither faster nor robust
+* **HDFS or distributed DBMSs** can be used in conjunction with Spark
+* SQL queries can also be used to extract data
+    * `df = sqlContext.sql("SELECT * FROM table")`
+* Relational DBMSs can be a source of data too
+    * e.g. via JDBC
+* CouchDB, MangoDB, and ElasticSearch connectors are available
+
+#### Spark Shell
