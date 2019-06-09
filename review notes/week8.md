@@ -148,6 +148,7 @@
     6. Spark application
         * Driver program + Executors
     7. Spark Context
+        * within driver program
         * general **configuration** of the job
         * **deployment mode** (3 modes) is set in the Spark Context
         * set the configuration of a Spark application, including the cluster it connects to in cluster mode
@@ -164,7 +165,7 @@
 
         <img src="pic/local_mode.png" width="200">
     2. Cluster Mode
-        * 1个 Master node 放 Cluster Manager，Driver Program，和 Spark Context，剩下的 Slave nodes 放 Executors
+        * 1个 Master node 放 Cluster Manager，Driver Program，剩下的 Slave nodes 放 Executors
             * 适合non-interactive job
         * every component, including the driver program, is executed on a cluster
         * upon launching, the job can run autonomously
@@ -172,7 +173,7 @@
 
         <img src="pic/cluster_mode.png" width="350">
     3. Client Mode
-        * Master node里放Cluster Manager，Driver Program和Spark Context放在另一个node上，Slave nodes放Executors
+        * Master node里放Cluster Manager，Driver Program放在另一个node上，Slave nodes放Executors
             * 必须要interactive job
         * the driver program **talks directly to the executors** on the worker nodes
         * the machine hosting the driver program has to be connected to the cluster until job completion
@@ -201,15 +202,29 @@
     3. **Lazily-evaluated**
         * 很少evaluate，只有在数据没发放在RDD才evaluate
         * the evaluation process happens only when data cannot be kept in an RDD, as when (比如): (these are called **actions**)
-            1. the number of objects in an RDD has to be computed
-            2. an RDD has to be written to a file
+            1. the _number of objects_ in an RDD has to be computed
+            2. an RDD has to be _written to a file_
         * but not when an RDD are transformed into another RDD (called **_transformations_**)
 * Build RDD
     * usually created out of data stored elsewhere (HDFS, a local text file, a DBMS)
     * can be created out of collections (e.g. lists) too, using paralleliza function (`sc.parallize(data)`)
 * Aside: Lambda Expression
+    * 没名字的function
     * often known as **closure**, in Javascript, as **callbacks**, or in Scala or Python as **lambda functions**
     * Example:
     <img src="pic/lambda.png" width="350">
     * (params) `->` { body of expression }
         * data types of params are usually inferred
+    * can **access variables** defined in the same scope of the expression
+* A few points about the example of driver program using RDDs:
+    * **RDD transformations** use Lambda Expression (closures) to simplify programming and avoid side-effects
+    * the only **action** in this `saveAsTextFile` (RDD written to a file), all the others are transformations (into another RDD)
+    * RDD variables are **just placeholders until the action is encountered**
+        * Spark application is **not just the driver program**, but all the RDD processing that takes place on the cluster
+            * Spark Application = Driver program + Executors
+
+    <img src="pic/edd.png" width="350">
+
+---
+
+#### Order of Execution of MapReduce Tasks
