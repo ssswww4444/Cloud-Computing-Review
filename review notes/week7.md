@@ -267,4 +267,21 @@
         * Indexes
     * Similar to Index-organized tables in Oracle
     * Views are **fast and store aggregated data** (which is great for analytics), but are **inflexible and use a lot of storage**
-    
+    * Functions
+        * map part: 
+            * `function(doc) {emit([doc.name], doc.amount)}`
+        * reduce part:
+            * **keys**: an array of keys, as returned by the view (null when rereduce is true)
+            * **values**: an array of values, as returned by the view
+            * **rereduce**:
+                * if false, the reduce is still in the **first stage** (values are disaggregated ones)
+                * if true, the reduce has already happened at least once, and the function works on aggregated keys and values (hence the keys param is null)
+            ```
+            function(keys, values, rereduce) { 
+                return sum(values); 
+            }
+            ```
+    * Views can be called from HTTP
+    * 
+
+#### up to page 47 in Lecture 7
