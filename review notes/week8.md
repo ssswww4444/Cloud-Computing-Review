@@ -71,6 +71,8 @@
     -file myAggregatorForKeyCount.py
     ```
 
+---
+
 #### Apache Spark
 * Why Spark?
     * Hadoop is geared toward performing **relatively simple jobs on large datasets**
@@ -115,4 +117,86 @@
     * e.g. via JDBC
 * CouchDB, MangoDB, and ElasticSearch connectors are available
 
-#### Spark Shell
+#### Spark Shell and Non-interactive jobs
+* Spark shell
+    * Allow to send command to the cluster interactively in either **Scala or Python** (while Hadoop uses Java)
+    * While the shell can be extremely useful
+        * it **prevents Spark** from **deploying all of its optimizations** -> leading to **poor performance**
+        * therefore -> use **non-interactive** jobs in Spark
+    * Example in Python:
+    <img src="pic/pyspark.png" width="300">
+* Non-interactive jobs
+    * 才会optimise
+    * Example in Java 7:
+    <img src="pic/non-interactive.png" width="400">
+
+#### Spark Runtime Architecture
+* Apps in Spark are composed of:
+    1. Job
+        * 整个job
+        * data processing that has to be performed on a dataset
+    2. Task
+        * a single operation on a dataset
+    3. Executer
+        * 跑task的
+        * the processes in which tasks are executed
+    4. Cluster Manager
+        * 分task的
+        * the process assigning tasks to executors
+    5. Driver program
+        * **main logic** of the application
+    6. Spark application
+        * Driver program + Executors
+    7. Spark Context
+        * general **configuration** of the job
+        * **deployment mode** (3 modes) is set in the Spark Context
+        * set the configuration of a Spark application, including the cluster it connects to in cluster mode
+        * can also be used to tune the execution by:
+            1. setting the **memory**
+            2. setting the **number of executors** to use
+* 3 modes:
+    1. Local Mode
+        * 所有都在同个JVM跑，有多个executor的话还是可以parallel，适合开发和debug
+        * every Spark Component runs within the **same JVM**
+        * Spark App can still run in **parallel**
+            * as there may be **more than one executor active**
+        * good when developing/debugging
+
+        <img src="pic/local_mode.png" width="200">
+    2. Cluster Mode
+        * 1个 Master node 放 Cluster Manager，Driver Program，和 Spark Context，剩下的 Slave nodes 放 Executors
+            * 适合non-interactive job
+        * every component, including the driver program, is executed on a cluster
+        * upon launching, the job can run autonomously
+        * common way of running non-interactive Spark jobs
+
+        <img src="pic/cluster_mode.png" width="350">
+    3. Client Mode
+        * Master node里放Cluster Manager，Driver Program和Spark Context放在另一个node上，Slave nodes放Executors
+            * 必须要interactive job
+        * the driver program **talks directly to the executors** on the worker nodes
+        * the machine hosting the driver program has to be connected to the cluster until job completion
+        * must be used when the apps are interactive (as happens in R, Python, or Scala Spark Application)
+
+        <img src="pic/client_mode.png" width="350">
+
+---
+
+#### Resilient Distributed Dataset (RDD)
+* the way data are stored in Spark **during computation**
+    * **Resilient** (弹性)
+        * data are stored **redundantly**, hence a failing node would not affect their integrity
+    * **Distributed**
+        * data are split into chunks, and these chunks are sent to **different nodes**
+    * **Dataset**
+        * a dataset is just a collection of objects, hence very generic
+* Properties
+    1. Immutable
+        * once defined, they cannot be changed
+        * (greatly simplifies parallel computing on them, is consistent with functional programming paradigm)
+    2. Transient (短暂)
+        * meant to be used only once, then discarded
+        * (they can be cached, if improve performance)
+    3. Lazily-evaluated
+        * 很少evaluate，只有在数据没发放在RDD才evaluate
+        * the evaluation process happens only when data cannot be kept in an RDD
