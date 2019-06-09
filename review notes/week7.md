@@ -282,6 +282,16 @@
             }
             ```
     * Views can be called from HTTP
-    * 
+* Views:
+    * are grouped into design documents
+    * may be passed the level of aggregation
+    * may return only a subset of keys
+    * are computed once they are called and updated every time a document is inserted, deleted or updated
+        * hence, the first invocation after un update may be slow
+    * are persisted to disk, hence adding an entire document in the view's result would use a lot of disk space: 
+        * emit(words[i],doc) (don't! Use include_docs=true instead);
+    * since there is no schema and documents of different types are often  stored in the same database, it is useful to add a type attribute to docs, which comes in handy when defining views.
+
+
 
 #### up to page 47 in Lecture 7
