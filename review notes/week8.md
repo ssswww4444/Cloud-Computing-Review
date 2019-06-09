@@ -192,14 +192,24 @@
         * a dataset is just a collection of objects, hence very generic
 * **crucial** to writing programs in Spark
 * Properties
-    1. Immutable
+    1. **Immutable**
         * once defined, they cannot be changed
         * (greatly simplifies parallel computing on them, is consistent with functional programming paradigm)
-    2. Transient (短暂)
+    2. **Transient** (短暂)
         * meant to be used only once, then discarded
         * (they can be cached, if improve performance)
-    3. Lazily-evaluated
+    3. **Lazily-evaluated**
         * 很少evaluate，只有在数据没发放在RDD才evaluate
-        * the evaluation process happens only when data cannot be kept in an RDD, as when:
-            * the number of objects in an RDD has to be computed, or an RDD has to be written to a file (called **_actions_**), 
-            * but not when an RDD are transformed into another RDD (called **_transformations_**)
+        * the evaluation process happens only when data cannot be kept in an RDD, as when (比如): (these are called **actions**)
+            1. the number of objects in an RDD has to be computed
+            2. an RDD has to be written to a file
+        * but not when an RDD are transformed into another RDD (called **_transformations_**)
+* Build RDD
+    * usually created out of data stored elsewhere (HDFS, a local text file, a DBMS)
+    * can be created out of collections (e.g. lists) too, using paralleliza function (`sc.parallize(data)`)
+* Aside: Lambda Expression
+    * often known as **closure**, in Javascript, as **callbacks**, or in Scala or Python as **lambda functions**
+    * Example:
+    <img src="pic/lambda.png" width="350">
+    * (params) `->` { body of expression }
+        * data types of params are usually inferred
