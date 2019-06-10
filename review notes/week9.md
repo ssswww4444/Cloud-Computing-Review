@@ -29,11 +29,7 @@
 <img src="pic/kernal-user.png" width="400">
 
 #### What happens in a VM
-* Hypervisor
-    * Gives perception of a whole machine
-* Virtual Hard Disk (VHD)
-    * repersents a virtual hard disk drive
-    * may contain what is found on a physical hard disk
+* Guest OS apps "think" they write to hard disk but **translated to virtualised** host hard drive **by VMM**
 <img src="pic/in_vm.png" width="450">
 
 #### Motivation of VM
@@ -46,4 +42,30 @@
 3. Security / Isolation
     * Share a single machine with multiple users
 4. Hardware Independence
+    * VM可以转移到别的hardware
     * Relocate to different hardware
+
+#### Origins - Principles
+* Properties of interest
+    1. Fidelity (忠诚)
+        * 在VMM跑和直接在机器上跑没两样，除了慢点
+        * Software on the VMM executes behaviour **identical** to that demonstrated when running on the machine directly, barring (除了) timing effects
+    2. Performance
+        * VMM不介入的情况下，硬件跑很多guest intructions
+        * An overwhelming majority of **guest instructions** executed by hardware without VMM intervention
+    3. Safety
+        * VMM管理所有硬件
+        * The VMM manages all hardware resources
+
+#### Classification of instructions
+1. Privileged Instructions
+    * 只能在kernel mode跑的
+    * trap (中断执行) if the processor is in user mode and do not trap in kernel mode
+2. Sensitive Instructions
+    * 在不同hardware或者不同mode的情况下，instruction的behaviour不同
+    * whose behaviour depends on the **mode** or **configuration** of the hardware
+        * Different behaviour depending on whether in user/kernel mode
+3. Innocuous (平淡) Instruction
+    * Instructions that are neither privileged nor sensitive
+
+#### Theorem: 
