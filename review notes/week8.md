@@ -242,6 +242,9 @@
 * Examples of Key/Value Pair Transformations
     <img src="pic/key_value.png" width="350">
 
+#### Make Execution Order Visible
+<img src="pic/spark_order.png" width="400">>
+
 #### **Caching** Intermediate Results
 * Spark好处之一
 * `rdd.persist(storageLevel)` can be used to **save** an RDD either in memory and/or disk
