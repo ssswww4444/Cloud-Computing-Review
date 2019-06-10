@@ -28,7 +28,7 @@
 * **Establishment and propagation** of a user's identity in the system
     * Centralised v.s. Decentralised systems
     * Public Key Infrastructure (PKI) (用public key的整套系统)
-        * underpins MANY systems
+        * underpins (加固/加强) MANY systems
         * based on public key cryptography
 * Public Key Cryptography 
     * aka. Asymmetric Cryptography (Public & Private keys)
@@ -49,7 +49,51 @@
 * **Central component** of Public Key Infrastructure (PKI)
 * CA has numerous responsibilities:
     1. Policy and procedure
-        * processes that should be followed by users, organisation, 
     2. Issuing certificates
+        * Often need to delegate to local **Registration Authority**
     3. Revoking certificates
-    4. Storing, archiving
+        * Certificate Revocation (废弃) List (CRL) for expired / compromised (=hacked) certificates
+    4. Storing, archiving (存档)
+        * keep track of existing certificates, various other info, ...
+* Typical Simple CA (centralised)
+    * User请求certificate，CA叫RA去查身份，没问题的话CA发certificate，下载CRL，export这个certificate
+    * RA: Registration Authority
+<img src="pic/simple_ca.png" width="450">
+
+#### PKI and *Cloud*
+* **IaaS key pair**
+* Cloud **inter-operability** begins in security
+    * No single, ubiquitous CA (there are many)
+* Need to **prove your identity** for access to: NeCTAR VMs, Spartan, ...
+
+#### Decentralised Authentication (Proof of Identity) thru Shibboleth
+* User要登陆的时候，Shibboleth把user转向WAYF，user选机构，机构验证user的身份，user获取资源
+1. User points browser at protected resource/portal
+2. Shibboleth redirects user to W.A.Y.F. service
+3. User select their home institution
+4. Home site authenticates user
+5. User access Resource
+* Support *Single Sign-On*
+    * 单次登陆可以access多个相关系统
+* Underpinned by PKI
+    * Service Providers
+    * Identity Providers
+    * WAYF (Where Are You From)
+* **Relation with Cloud for IaaS v.s. Usage of a Cloud**
+    * What we really want: finner-grained (更细致的) security
+    * Cloud don't tackle this now
+    * Typically domain/user specific
+<img src="pic/shibboleth.png" width="500">
+
+#### Authorisation (授权/批准，查权利)
+* Controlling access to resources based on policy
+    * Can this user invoke this service, make use of this data?
+    * Complementary to authentication
+    * Many different approaches for authentication:
+        1. Group Based Access Control
+            * e.g. your project VMs
+        2. Role Based Access Control (RBAC)
+        3. Identity Based Access Control (IBAC)
+        4. Attribute Based Access Control (ABAC)
+        5. ...
+* Typically applies to **services/data deployed on Cloud**
