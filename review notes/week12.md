@@ -103,4 +103,21 @@
     * Each site will have different rules/regulatins
 * Often realised through **Virtual Organisation (VO)**
     * Collection of distributed resources whared by collection of **users from one more more organisations** typically work on common goal
+* Many Technologies:
+    * XACML, PERMIS, CAS, ...
+* RBAC (Role-based Access Control) is **typical model**
+    * Basic idea: 
+        * **roles** applicable to specific collaboration
+            * roles are often hierarchical
+        * **actions** allowed / not allowed for VO members
+        * **resources** comprising VO infrastructure (computers, data, etc.) 
+    * A policy then consists of **set of these rules**
+        * {Role x Action x Target}
+        * Policy itself can be represented in many ways
+            * XML documents, SAML, XACML, ...
+        * Standards on when/where these used (PEP) and enforced (PDP)
+    * Policy engines consume this information to make access decisions
+* Shibboleth Augmented Authorisation
+<img src="pic/shibboleth_aug.png" width="500">
+* 和之前的区别在于，Home institution不止authenticate了user, 还发送了attributes给service provider，service provider把authentication info和attribute都发给authZ function，然后决定用户有没有全县
 * 
