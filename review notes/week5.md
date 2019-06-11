@@ -1,4 +1,4 @@
-# Lecture 4: Cloud Computing & NeCTAR/Unimelb Cloud & Scripting
+# Lecture 5: Cloud Computing & NeCTAR/Unimelb Cloud & Scripting
 
 #### Cloud Computing
 * Defininition: 
@@ -94,6 +94,8 @@
     * 临时用的disk，VM没了就没了
     * Only persistent until the termination / rebuild of the VM, similar to the root disk
     * Not persistence storage
+* Object Store
+    * Store data as an object
 * Launching a new VM
     1. Choose Flavor
     2. Ephemeral Disk
