@@ -97,3 +97,10 @@
         4. Attribute Based Access Control (ABAC)
         5. ...
 * Typically applies to **services/data deployed on Cloud**
+    * i.e. when they are running
+    * 比如谁可以安装这个补丁
+* Defining what they can do and define & enforce rules
+    * Each site will have different rules/regulatins
+* Often realised through **Virtual Organisation (VO)**
+    * Collection of distributed resources whared by collection of **users from one more more organisations** typically work on common goal
+* 
