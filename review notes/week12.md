@@ -120,4 +120,32 @@
 * Shibboleth Augmented Authorisation
 <img src="pic/shibboleth_aug.png" width="500">
 * 和之前的区别在于，Home institution不止authenticate了user, 还发送了attributes给service provider，service provider把authentication info和attribute都发给authZ function，然后决定用户有没有全县
-* 
+
+#### Other cloud challenges
+1. Single sign-on
+    * Grid model (and Shib model) needed
+    * Currently not solved for Cloud-based IaaS
+    * Onus (责任) is on non-Cloud developerss to define / support this
+2. Auditing
+    * **logging, intrusion (干涉) detection，auditing (审核) of security** in external computer facilities
+        * well established in theory, and practice and for local system
+            * less mature in Cloud environments
+        * Tools to support generation of diagnostic trails
+3. Deletion (and encryption) 删不掉，不好删
+    * Data deletion with no direct hard disk (不知道设备在哪)
+        * Many tools and utilises don't work
+    * Scale of data 不好删大数据量的
+4. Liability 责任
+5. Licensing 你要接受条款
+    * Many licensing models
+    * Challenges with the Cloud delivery model
+6. Workflows
+    * Many workflow tools for combining SoA services / data flows
+    * Many workflow models
+    * Serious challanges of 
+        1. defining
+        2. enforcing
+        3. sharing
+        4. enacting (制定)
+    * security-oriented workflow
+7. Ever Changing Technical / Legal Landscape 千变万化
